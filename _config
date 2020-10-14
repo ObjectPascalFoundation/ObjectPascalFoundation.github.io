@@ -1,0 +1,11 @@
+output: _site
+theme: {builtin}/default
+title: Object Pascal Foundation
+extra_javascript: /js/tabber-minimized.js
+extra_javascript: /js/tabber-setup.js
+extra_css: /css/Tabber.css
+extra_css: /css/opf.css
+fullfilename: true
+;gacode: UA-
+shortname: opf
+searchurl: https://objectpascal.foundation/__refresh/search.php?collection=opf&query=

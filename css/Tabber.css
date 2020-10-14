@@ -1,0 +1,106 @@
+/* @override http://docs.elementscompiler.com/css/Tabber.css */
+
+/*Copied from http://www.barelyfitz.com/projects/tabber/example.css used under mit license
+see http://www.barelyfitz.com/projects/tabber/
+*/
+/* $Id: example.css,v 1.5 2006/03/27 02:44:36 pat Exp $ */
+ 
+/*--------------------------------------------------
+  REQUIRED to hide the non-active tab content.
+  But do not hide them in the print stylesheet!
+  --------------------------------------------------*/
+.tabberlive .tabbertabhide {
+	display:none;
+}
+ 
+/*--------------------------------------------------
+  .tabber = before the tabber interface is set up
+  .tabberlive = after the tabber interface is set up
+  --------------------------------------------------*/
+.tabber {
+}
+.tabberlive {
+	margin-top:0em;
+}
+ 
+/*--------------------------------------------------
+  ul.tabbernav = the tab navigation list
+  li.tabberactive = the active tab
+  --------------------------------------------------*/
+ul.tabbernav
+{
+	font-weight: bold;
+	text-align: right;
+	margin-bottom: -18px !important;
+	padding-right: 5px;
+}
+ 
+ul.tabbernav li
+{
+	list-style: none;
+	margin: 0;
+	display: inline;
+	font-size: 10pt;
+}
+ 
+ul.tabbernav li a
+{
+ text-decoration: none;
+}
+ 
+ul.tabbernav li a:link { color: #a0a0a0; }
+ul.tabbernav li a:visited { color: #a0a0a0; }
+ul.tabbernav li a:hover { color: navy; }
+ul.tabbernav li.tabberactive a {  color: #000; }
+ 
+ 
+/*--------------------------------------------------
+  .tabbertab = the tab content
+  Add style only after the tabber interface is set up (.tabberlive)
+  --------------------------------------------------*/
+.tabberlive .tabbertab {
+ padding:0;
+} 
+ 
+
+ /*// methods specifc */ 
+ 
+.tabber_members_live .tabbertabhide {
+	display:none;
+}
+ 
+.tabber_members {
+}
+.tabber_members_live {
+	margin-top:0em;
+}
+ 
+ul.tabbernav_members
+{
+	font-weight: bold;
+	text-align: right;
+	margin-bottom: -37px !important;
+	padding-right: 5px;
+}
+ 
+ul.tabbernav_members li
+{
+	list-style: none;
+	margin: 0;
+	display: inline;
+	font-size: 10pt;
+}
+ 
+ul.tabbernav_members li a
+{
+ text-decoration: none;
+}
+ 
+ul.tabbernav_members li a:link { color: #a0a0a0; }
+ul.tabbernav_members li a:visited { color: #a0a0a0; }
+ul.tabbernav_members li a:hover { color: navy; }
+ul.tabbernav_members li.tabbermembers_active a {  color: #000; }
+ 
+.tabber_members_live .tabbertab_members {
+ padding:0;
+ 

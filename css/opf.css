@@ -1,0 +1,92 @@
+/* @override http://localhost:4001/css/Elements.css */
+
+.navcolor {
+    background-color: #2980b9;
+}
+a {
+    color: #2980b9;
+}
+a:hover {
+    color: #3091d1;
+    text-decoration: underline;
+}
+
+.beta .main-content img {
+	border: 1px solid #c0c0c0;
+	background-color: white;
+	border-radius: 40px;
+	box-shadow: 0px 0px 10px 10px #ffd8d8;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* info boxes */
+
+.version,
+.platform,
+.language,
+.note {
+	margin-bottom: 1em;
+	margin-left: -1em;
+	margin-right: -1em;
+	padding: 1em 1em 0 1em;
+}
+
+.version h2,
+.platform h2,
+.language h2,
+.note h2 {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+
+.version {
+	background-color: #f0f0ff;
+	border: 1px solid #c0c0ff;
+}
+
+.platform {
+	background-color: #fff0f0;
+	border: 1px solid #ffc0c0;
+}
+
+.platform a {
+  color: #e00000;
+}
+
+.language {
+	background-color: #e0ffe0;
+	border: 1px solid #b0ffb0;
+}
+
+.note {
+	background-color: #f8f8f8;
+	border: 1px solid #e0e0e0;
+}
+
+.language a {
+  color: #00a000;
+}
+
+.maincontentsection.further-reading,
+.maincontentsection.further-reading div.maincontentouter {
+	background-color: #e8e8e8 !important;
+}
+
+/* override from default */
+
+.brokenlink, .brokenwikilink
+{
+	color: #808080;
+}
+
+.brokenlink:after {
+	content: "";
+    color: #c04040;
+}
+
+.brokenwikilink:after {
+	content: " (old wiki)";
+    color: #c04040;
+}
