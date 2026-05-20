@@ -11,8 +11,8 @@ index: -
 index: About.md
 ---
 
-The goal of the Object Pascal Foundation, or OPF for short, it to advance and promote the adoption of Object Pascal-based programming languages around the world.
+The goal of the Object Pascal Foundation, or OPF, it to advance and promote the world-wide adoption of programming languages which use Object Pascal as their origin and for their core principles.
 
-Object Pascal is based on the Pascal programing language invented by [Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth), but has come along way since the 1970s. Popular Object Pascal implementations currently in use are [Delphi](/Implementations/Delphi), [Oxygene](/Implementations/Oxygene) and [Free Pascal](/Implementations/FPC).
+Object Pascal is based on the Pascal programing language invented in 1970 by [Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth), but has come along way since that time. Popular Object Pascal implementations currently in use are [Delphi](/Implementations/Delphi), [Oxygene](/Implementations/Oxygene) and [Free Pascal](/Implementations/FPC).
 
 You can read a more detailed [History](/History) of Pascal and Object Pascal [here](/History).
