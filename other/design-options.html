@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Object Pascal Foundation Design Options</title>
+  <style>
+    :root {
+      --ink: #16202a;
+      --muted: #5b6773;
+      --paper: #fbfaf7;
+      --line: #d8d5cd;
+      --blue: #225f9f;
+      --green: #2f7d5c;
+      --amber: #b97924;
+      --code: #101820;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #e8e5de;
+      color: var(--ink);
+      font-family: "Segoe UI", "Aptos", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 32px 20px 64px;
+    }
+
+    .intro {
+      margin-bottom: 24px;
+      padding: 20px 0;
+    }
+
+    .intro h1 {
+      margin: 0 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 5vw, 58px);
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .intro p {
+      max-width: 760px;
+      margin: 0;
+      color: #3f4851;
+      font-size: 18px;
+    }
+
+    .option {
+      margin: 32px 0 56px;
+      border: 1px solid #c9c5ba;
+      background: var(--paper);
+    }
+
+    .option-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      border-bottom: 1px solid #c9c5ba;
+      background: #f1eee7;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .option-label span:last-child {
+      color: var(--muted);
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .mock {
+      min-height: 720px;
+      overflow: hidden;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 40px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .mark {
+      width: 28px;
+      height: 28px;
+      border: 2px solid currentColor;
+      transform: rotate(45deg);
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid currentColor;
+      color: inherit;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      gap: 44px;
+      padding: 64px 40px 52px;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0 0 22px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 6vw, 76px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 680px;
+      margin: 0 0 28px;
+      color: #3e4852;
+      font-size: 19px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .panel h3 {
+      margin: 0;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 15px;
+    }
+
+    .guide-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .guide-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .guide-row:last-child {
+      border-bottom: 0;
+    }
+
+    .tag {
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .rhythm {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .rhythm article {
+      padding: 28px 30px 34px;
+      border-right: 1px solid var(--line);
+    }
+
+    .rhythm article:last-child {
+      border-right: 0;
+    }
+
+    .rhythm h3 {
+      margin: 0 0 10px;
+      font-size: 30px;
+      letter-spacing: 0;
+    }
+
+    .rhythm p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .mini-links {
+      display: grid;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .variant-field .hero {
+      grid-template-columns: 1fr;
+      padding-bottom: 36px;
+    }
+
+    .variant-field .hero h2 {
+      max-width: 980px;
+      font-family: "Segoe UI Semibold", "Aptos Display", system-ui, sans-serif;
+      font-size: clamp(40px, 7vw, 82px);
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      border-top: 1px solid var(--line);
+    }
+
+    .sidebar {
+      padding: 26px 24px;
+      border-right: 1px solid var(--line);
+      background: #f2f0ea;
+    }
+
+    .sidebar h3 {
+      margin: 0 0 14px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 8px 0;
+      color: #2d3945;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      padding: 24px;
+    }
+
+    .card {
+      min-height: 170px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+    }
+
+    .pill {
+      padding: 3px 8px;
+      border: 1px solid #cfd5d8;
+      color: #40505a;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .variant-civic-lab {
+      background: #f9f7f1;
+    }
+
+    .variant-civic-lab .hero {
+      grid-template-columns: minmax(0, .95fr) minmax(360px, 1.05fr);
+    }
+
+    .map {
+      position: relative;
+      min-height: 390px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(#e8e2d4 1px, transparent 1px),
+        linear-gradient(90deg, #e8e2d4 1px, transparent 1px),
+        #fffdf8;
+      background-size: 28px 28px;
+    }
+
+    .node {
+      position: absolute;
+      padding: 8px 10px;
+      border: 1px solid #abb5bd;
+      background: #ffffff;
+      color: #22303a;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .node.core {
+      left: 50%;
+      top: 50%;
+      width: 132px;
+      padding: 18px 14px;
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+
+    .n1 { left: 11%; top: 12%; }
+    .n2 { right: 12%; top: 14%; }
+    .n3 { left: 9%; bottom: 18%; }
+    .n4 { right: 10%; bottom: 16%; }
+    .n5 { left: 38%; top: 10%; }
+    .n6 { left: 40%; bottom: 10%; }
+
+    .routes {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+
+    .route {
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .route:last-child {
+      border-right: 0;
+    }
+
+    .route strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .route span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .variant-civic-lab .hero,
+      .field-grid,
+      .rhythm,
+      .cards,
+      .routes {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .links {
+        flex-wrap: wrap;
+      }
+
+      .rhythm article,
+      .route,
+      .sidebar {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro">
+      <h1>OPF Design Examples</h1>
+      <p>Three homepage directions for a crisp, modern Civic Field Guide: foundation credibility, repeat-use utility, and interoperability as the signature topic.</p>
+    </section>
+
+    <section class="option">
+      <div class="option-label">
+        <span>Option 1: Civic Field Guide</span>
+        <span>Balanced foundation + utility</span>
+      </div>
+      <div class="mock">
+        <nav class="nav">
+          <div class="brand"><span class="mark"></span><span>Object Pascal Foundation</span></div>
+          <div class="links">
+            <span>Manifesto</span>
+            <span>Field Guide</span>
+            <span>Interoperability</span>
+            <span>Contribute</span>
+          </div>
+        </nav>
+        <section class="hero">
+          <div>
+            <p class="eyebrow">Impartial community field guide</p>
+            <h2>Object Pascal: alive, growing, connected.</h2>
+            <p>Explore the implementations, tools, libraries, communities, and interoperability patterns that make Object Pascal a practical part of the modern developer toolbelt.</p>
+            <div class="actions">
+              <a class="button primary" href="#">Start Exploring</a>
+              <a class="button" href="#">Read the Manifesto</a>
+              <a class="button" href="#">Add a Resource</a>
+            </div>
+          </div>
+          <aside class="panel">
+            <h3>Useful starting points</h3>
+            <div class="guide-list">
+              <div class="guide-row"><span>Delphi, Free Pascal, Lazarus, Oxygene</span><span class="tag">Implementations</span></div>
+              <div class="guide-row"><span>Python4Delphi, Pas2JS, DWScript</span><span class="tag">Interop</span></div>
+              <div class="guide-row"><span>Books, courses, talks, podcasts</span><span class="tag">Learning</span></div>
+              <div class="guide-row"><span>Open issues asking for examples</span><span class="tag">Contribute</span></div>
+            </div>
+          </aside>
+        </section>
+        <section class="rhythm">
+          <article>
+            <h3>Alive</h3>
+            <p>Current implementations, releases, production stories, and modern examples.</p>
+            <div class="mini-links"><span>Active compilers</span><span>Modern applications</span><span>Release notes</span></div>
+          </article>
+          <article>
+            <h3>Growing</h3>
+            <p>Libraries, education, communities, events, and new projects worth finding.</p>
+            <div class="mini-links"><span>Learning resources</span><span>Community groups</span><span>Project directory</span></div>
+          </article>
+          <article>
+            <h3>Connected</h3>
+            <p>Guides for Object Pascal with Python, JavaScript, .NET, C/C++, and more.</p>
+            <div class="mini-links"><span>Interop recipes</span><span>Works-with tags</span><span>Submit an example</span></div>
+          </article>
+        </section>
+      </div>
+    </section>
+
+    <section class="option">
+      <div class="option-label">
+        <span>Option 2: Practical Almanac</span>
+        <span>Field guide utility first</span>
+      </div>
+      <div class="mock variant-field">
+        <nav class="nav">
+          <div class="brand"><span class="mark"></span><span>OPF</span></div>
+          <div class="links">
+            <span>Implementations</span>
+            <span>Libraries</span>
+            <span>Education</span>
+            <span>Interop</span>
+            <span>GitHub</span>
+          </div>
+        </nav>
+        <section class="hero">
+          <div>
+            <p class="eyebrow">A living map of the ecosystem</p>
+            <h2>Find the Object Pascal tools, projects, and communities that are active today.</h2>
+            <p>Start with what you need: a compiler, an IDE, a web target, a Python bridge, a book, a forum, a component library, or a way to contribute a missing link.</p>
+          </div>
+        </section>
+        <section class="field-grid">
+          <aside class="sidebar">
+            <h3>Field Guide</h3>
+            <a href="#">Implementations</a>
+            <a href="#">Tools and IDEs</a>
+            <a href="#">Libraries</a>
+            <a href="#">Interoperability</a>
+            <a href="#">Learning</a>
+            <a href="#">Communities</a>
+            <a href="#">Recently verified</a>
+          </aside>
+          <div class="cards">
+            <article class="card">
+              <h3>Pas2JS</h3>
+              <p>Compile Pascal to JavaScript for web applications and browser-hosted interfaces.</p>
+              <div class="meta"><span class="pill">JavaScript</span><span class="pill">FPC</span><span class="pill">Web</span></div>
+            </article>
+            <article class="card">
+              <h3>Python4Delphi</h3>
+              <p>Embed Python in Delphi and Lazarus applications, expose objects, and script behavior.</p>
+              <div class="meta"><span class="pill">Python</span><span class="pill">Delphi</span><span class="pill">Lazarus</span></div>
+            </article>
+            <article class="card">
+              <h3>Elements / Oxygene</h3>
+              <p>Object Pascal language targeting .NET, Java, Cocoa, Android, native, and WebAssembly.</p>
+              <div class="meta"><span class="pill">.NET</span><span class="pill">Java</span><span class="pill">Native</span></div>
+            </article>
+            <article class="card">
+              <h3>Learning Path</h3>
+              <p>Books, courses, tutorials, talks, and historical context for modern Object Pascal.</p>
+              <div class="meta"><span class="pill">Education</span><span class="pill">Beginner</span></div>
+            </article>
+            <article class="card">
+              <h3>Community Index</h3>
+              <p>Forums, chats, podcasts, events, user groups, and places to ask real questions.</p>
+              <div class="meta"><span class="pill">Community</span><span class="pill">Events</span></div>
+            </article>
+            <article class="card">
+              <h3>Missing Something?</h3>
+              <p>Open an issue or pull request with source links, status, and what it works with.</p>
+              <div class="meta"><span class="pill">GitHub</span><span class="pill">Contribute</span></div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="option">
+      <div class="option-label">
+        <span>Option 3: Connected Foundation</span>
+        <span>Interop pillar made visible</span>
+      </div>
+      <div class="mock variant-civic-lab">
+        <nav class="nav">
+          <div class="brand"><span class="mark"></span><span>Object Pascal Foundation</span></div>
+          <div class="links">
+            <span>Alive</span>
+            <span>Growing</span>
+            <span>Connected</span>
+            <span>Manifesto</span>
+          </div>
+        </nav>
+        <section class="hero">
+          <div>
+            <p class="eyebrow">Promoting the ecosystem, not a territory</p>
+            <h2>Object Pascal: alive, growing, connected.</h2>
+            <p>An impartial guide to the tools, communities, and integration patterns that make Object Pascal useful in modern mixed-language software.</p>
+            <div class="actions">
+              <a class="button primary" href="#">Explore Connections</a>
+              <a class="button" href="#">Browse the Directory</a>
+            </div>
+          </div>
+          <div class="map" aria-label="Object Pascal interoperability map">
+            <div class="node core">Object Pascal</div>
+            <div class="node n1">Python</div>
+            <div class="node n2">JavaScript</div>
+            <div class="node n3">C / C++</div>
+            <div class="node n4">.NET / C#</div>
+            <div class="node n5">Native UI</div>
+            <div class="node n6">Scripting</div>
+          </div>
+        </section>
+        <section class="routes">
+          <div class="route"><strong>OP + Python</strong><span>Embed, automate, script, and expose Delphi objects.</span></div>
+          <div class="route"><strong>OP + JavaScript</strong><span>Target the web with Pascal code and browser runtimes.</span></div>
+          <div class="route"><strong>OP + Native APIs</strong><span>Build productive UI layers around platform capabilities.</span></div>
+          <div class="route"><strong>OP + Implementations</strong><span>Track compatibility, dialects, libraries, and reuse paths.</span></div>
+        </section>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
