@@ -16,3 +16,5 @@ The goal of the Object Pascal Foundation, or OPF, it to advance and promote the 
 Object Pascal is based on the Pascal programing language invented in 1970 by [Niklaus Wirth](https://en.wikipedia.org/wiki/Niklaus_Wirth), but has come along way since that time. Popular Object Pascal implementations currently in use are [Delphi](/Implementations/Delphi), [Oxygene](/Implementations/Oxygene) and [Free Pascal](/Implementations/FPC).
 
 You can read a more detailed [History](/History) of Pascal and Object Pascal [here](/History).
+
+<a href="https://objectpascal.foundation/"><img width="256" height="256" alt="Object Pascal Logo" src="https://github.com/user-attachments/assets/e93d579b-aaf5-4365-bc9f-ad82f9ff1445" /></a>
